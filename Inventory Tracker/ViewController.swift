@@ -20,12 +20,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func detectBarcodes() {
-//        let format = VisionBarcodeFormat.all
-//        let barcodeOptions = VisionBarcodeDetectorOptions(formats: format)
-//        var vision = Vision.vision()
-//        let barcodeDetector = vision.barcodeDetector(options: barcodeOptions)
-//        let image = VisionImage(image: cameraFeed)
+    func detectBarcodes(image: UIImage) {
+        print("detecting new barcode")
+        let barcodeOptions = VisionBarcodeDetectorOptions(formats: VisionBarcodeFormat.all)
+        let barcodeDetector = Vision.vision().barcodeDetector(options: barcodeOptions)
+        let image = VisionImage(image: image)
+        
+        barcodeDetector.detect(in: image) { barcodes, error in
+            guard error == nil, let barcodes = barcodes, !barcodes.isEmpty else {return}
+            barcodes.forEach { barcode in
+                print("\(barcode.valueType) + \(barcode.rawValue)")
+            }
+        }
     }
 
     @IBAction func openPicker(_ sender: Any) {
@@ -38,6 +44,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             cameraFeed.contentMode = .scaleAspectFit
             cameraFeed.image = pickedImage
+            detectBarcodes(image: pickedImage)
         }
         dismiss(animated: true, completion: nil)
     }
