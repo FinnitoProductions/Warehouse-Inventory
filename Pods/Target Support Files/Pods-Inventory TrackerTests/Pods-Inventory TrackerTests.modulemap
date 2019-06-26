@@ -1,0 +1,6 @@
+framework module Pods_Inventory_TrackerTests {
+  umbrella header "Pods-Inventory TrackerTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

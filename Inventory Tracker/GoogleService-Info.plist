@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>641539557822-ftm9bhmup95hgltl0lj9hg2t16bli4n7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.641539557822-ftm9bhmup95hgltl0lj9hg2t16bli4n7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDuafvNpnLu8cP0tqUeiqzsIL5uoM70UTc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>641539557822</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>FinnitoProductions.Inventory-Tracker</string>
+	<key>PROJECT_ID</key>
+	<string>inventory-tracker-1bb5f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>inventory-tracker-1bb5f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:641539557822:ios:00eebeda985d7d7a</string>
+	<key>DATABASE_URL</key>
+	<string>https://inventory-tracker-1bb5f.firebaseio.com</string>
+</dict>
+</plist>
