@@ -35,9 +35,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     
     func setupCameraInput() {
         captureSession.beginConfiguration()
-        guard let device = self.captureDevice(forPosition: Constants.defaultCameraPos) else {
-            return
-        }
+        guard let device = getCameraDevice() else { return }
         do {
             let input = try AVCaptureDeviceInput(device: device)
             captureSession.addInput(input)
@@ -66,24 +64,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
     }
     
     func startCameraSession() {
-        captureSession.startRunning()
-    }
-    
-    func startBarcodeCapture() {
-        captureSession.sessionPreset = .photo
-        let captureDevice = AVCaptureDevice.default(for: .video)
-        
-        let deviceInput = try! AVCaptureDeviceInput(device: captureDevice!)
-        
-        let deviceOutput = AVCaptureVideoDataOutput()
-        deviceOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_32BGRA)]
-        deviceOutput.setSampleBufferDelegate(self, queue: DispatchQueue.global(qos: DispatchQoS.QoSClass.default))
-        
-        captureSession.addInput(deviceInput)
-        captureSession.addOutput(deviceOutput)
-        
-
-        
         captureSession.startRunning()
     }
     
@@ -135,15 +115,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         }
     }
     
-    private func captureDevice(forPosition position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        if #available(iOS 10.0, *) {
-            let discoverySession = AVCaptureDevice.DiscoverySession(
-                deviceTypes: [.builtInWideAngleCamera],
-                mediaType: .video,
-                position: .unspecified
-            )
-            return discoverySession.devices.first { $0.position == position }
-        }
-        return nil
+    private func getCameraDevice() -> AVCaptureDevice? {
+        let discoverySession = AVCaptureDevice.DiscoverySession(
+            deviceTypes: [.builtInWideAngleCamera],
+            mediaType: .video,
+            position: Constants.defaultCameraPos
+        ) // filter by desired criteria
+
+        return discoverySession.devices[0]
     }
 }
