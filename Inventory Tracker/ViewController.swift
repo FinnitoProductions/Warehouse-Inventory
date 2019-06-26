@@ -13,24 +13,20 @@ import Firebase
 class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     @IBOutlet weak var cameraFeed: UIImageView!
     let captureSession = AVCaptureSession()
-    lazy var vision = Vision.vision()
     @IBOutlet weak var barCodeRawValueLabel: UILabel!
     
-    var barcodeDetector : VisionBarcodeDetector?
+    var barcodeDetector : VisionBarcodeDetector = Vision.vision().barcodeDetector(options: VisionBarcodeDetectorOptions(formats: VisionBarcodeFormat.all))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        barcodeDetector = vision.barcodeDetector(options: VisionBarcodeDetectorOptions(formats: VisionBarcodeFormat.all))
         setupCameraOutput()
         setupCameraInput()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         startCameraSession()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     func setupCameraInput() {
@@ -74,21 +70,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         metadata.orientation = imageOrientation(deviceOrientation: UIDevice.current.orientation, cameraPosition: .back)
         image.metadata = metadata
         
-        if let barcodeDetector = self.barcodeDetector {
-            barcodeDetector.detect(in: image) { barcodes, error in
-                guard error == nil, let barcodes = barcodes else {
-                    if let error = error {
-                        print(error.localizedDescription)
-                    }
-                    return
+        barcodeDetector.detect(in: image) { barcodes, error in
+            guard error == nil, let barcodes = barcodes else {
+                if let error = error {
+                    print(error.localizedDescription)
                 }
-                
-                
-                barcodes.forEach { barcode in
-                    print("found")
-                    self.barCodeRawValueLabel.text = "\(barcode.rawValue)"
-                    self.barCodeRawValueLabel.textColor = .green
-                }
+                return
+            }
+            
+            
+            barcodes.forEach { barcode in
+                print("found")
+                self.barCodeRawValueLabel.text = "\(barcode.rawValue)"
+                self.barCodeRawValueLabel.textColor = .green
             }
         }
     }
