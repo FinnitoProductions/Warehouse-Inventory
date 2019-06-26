@@ -54,7 +54,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
         captureSession.commitConfiguration()
         
         let imageLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        imageLayer.frame = CGRect(x: 0, y: 0, width: self.cameraFeed.frame.size.width + 100, height: self.cameraFeed.frame.size.height)
+        imageLayer.frame = CGRect(x: 0, y: 0, width: self.cameraFeed.frame.size.width, height: self.cameraFeed.frame.size.height)
         imageLayer.videoGravity = .resizeAspectFill
         cameraFeed.layer.addSublayer(imageLayer)
     }
@@ -81,7 +81,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, AVCaptur
             
             barcodes.forEach { barcode in
                 print("found")
-                self.barCodeRawValueLabel.text = "\(barcode.rawValue)"
+                self.barCodeRawValueLabel.text = barcode.rawValue!
                 self.barCodeRawValueLabel.textColor = .green
             }
         }
