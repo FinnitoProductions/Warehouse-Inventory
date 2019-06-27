@@ -545,6 +545,84 @@
 @end
 
 /**
+ * Describes facial contours in a still image frame. A facial contour is a set of points that
+ * outlines a facial landmark or region.
+ */
+@interface GMVFaceContour : NSObject
+
+/**
+ * All contour points.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *allPoints;
+/**
+ * A set of points outlines the face oval, relative to the detected image in the view coordinate
+ * system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *faceContour;
+/**
+ * A set of points outlines the top of the left eyebrow, relative to the detected image in the view
+ * coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *topLeftEyebrowContour;
+/**
+ * A set of points outlines the bottom of the left eyebrow, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *bottomLeftEyebrowContour;
+/**
+ * A set of points outlines the top of the right eyebrow, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *topRightEyebrowContour;
+/**
+ * A set of points outlines the bottom of the right eyebrow, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *bottomRightEyebrowContour;
+/**
+ * A set of points outlines the left eye, relative to the detected image in the view coordinate
+ * system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *leftEyeContour;
+/**
+ * A set of points outlines the right eye, relative to the detected image in the view coordinate
+ * system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *rightEyeContour;
+/**
+ * A set of points outlines the top of the upper lip, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *topUpperLipContour;
+/**
+ * A set of points outlines the bottom of the upper lip, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *bottomUpperLipContour;
+/**
+ * A set of points outlines the top of the lower lip, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *topLowerLipContour;
+/**
+ * A set of points outlines the bottom of the lower lip, relative to the detected image in the
+ * view coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *bottomLowerLipContour;
+/**
+ * A set of points outlines the nose bridge, relative to the detected image in the view coordinate
+ * system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *noseBridgeContour;
+/**
+ * A set of points outlines the bottom of the nose, relative to the detected image in the view
+ * coordinate system.
+ */
+@property(atomic, copy, readonly) NSArray<NSValue *> *bottomNoseContour;
+
+@end
+
+/**
  * Describes a face detected in a still image frame. Its properties provide face
  * landmark information.
  */
@@ -574,6 +652,17 @@
  * Positive euler z is a counter-clockwise rotation within the image plane.
  */
 @property(atomic, assign, readonly) CGFloat headEulerAngleZ;
+
+/**
+ * Indicates the rotation of the face about the horizontal axis.
+ * Positive euler x is the rotation when the face looks up.
+ */
+@property(atomic, assign, readonly) CGFloat headEulerAngleX;
+
+/**
+ * Indicates whether the detector found the head x euler angle.
+ */
+@property(atomic, assign, readonly) BOOL hasHeadEulerAngleX;
 
 #pragma mark - Mouth properties
 
@@ -741,6 +830,12 @@
  */
 @property(atomic, assign, readonly) CGFloat rightEyeOpenProbability;
 
+/**
+ * Describes a set of points that outlines a facial landmark.
+ */
+@property(atomic, copy, readonly) GMVFaceContour *contour;
+
+
 @end
 
 /**
@@ -778,3 +873,40 @@
 
 @end
 
+/**
+ * Describes an object detected in a frame from a camera stream. Its properties provide details
+ * about the object.
+ */
+@interface GMVObjectFeature : GMVFeature
+
+/**
+ * Machine-generated identifier (thus MID) corresponding to the entity's Google Knowledge Graph
+ * entry. For example: "/g/11g0srrsqr".
+ *
+ * Note the globally unique MID values remain unchanged across different languages, so you
+ * can use this value to tie entities together from different languages. To inspect the MID
+ * value, refer to the Google Knowledge Graph API documentation.
+ * https://developers.google.com/knowledge-graph/reference/rest/v1/
+ */
+@property(atomic, copy, readonly) NSString *MID;
+
+/**
+ * Description of the label associated to the object, i.e. human readable string in American
+ * English. For example: "Fashion good".
+ *
+ * Note: this is not fit for display purposes, as it is not localized. Use the MID and query the
+ * Knowledge Graph to get a localized description of the label.
+ */
+@property(atomic, copy, readonly) NSString *labelDescription;
+
+/**
+ * Indicates whether an object feature has a probability score.
+ */
+@property(atomic, assign, readonly) BOOL hasScore;
+
+/**
+ * The probability score.
+ */
+@property(atomic, assign, readonly) float score;
+
+@end

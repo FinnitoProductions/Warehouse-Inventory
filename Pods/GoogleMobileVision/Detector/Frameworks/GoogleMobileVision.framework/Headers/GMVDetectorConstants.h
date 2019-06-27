@@ -7,26 +7,6 @@
  *  Detector constants.
  */
 
-/**
- * @enum GMVResultCoordinateSpace
- * This enumeration specifies the detection result coordinate space.
- */
-typedef NS_ENUM(NSInteger, GMVResultCoordinateSpace) {
-  /**
-   * This enumeration specifies the detection results which are in the CaptureDevice coordinate
-   * space. The coordinates are rotated / flipped based on the EXIF information. The coordinates
-   * are scaled based on detection buffer / image. The result coordinates need to be scaled properly
-   * based on the video gravity to display correctly in the AVCaptureVideoPreviewLayer.
-   */
-  GMVResultCaptureDeviceEXIFCoordinateSpace = 1,
-  /**
-   * This enumeration specifies the detection results which are in CaptureDevice coordinate space.
-   * It should be used with pointForCaptureDevicePointOfInterest: to convert to the
-   * AVCaptureVideoPreviewLayer coordinate space.
-   */
-  GMVResultCaptureDeviceCoordinateSpace = 2
-};
-
 /** Possible error codes returned by GMVDetector. */
 typedef NS_ENUM(NSInteger, GMVDetectorError) {
   GMVDetectorInvalidInput = -301
@@ -87,7 +67,12 @@ typedef NS_ENUM(NSInteger, GMVDetectorFaceModeOption) {
    * Face detection mode code indicating detect more faces and may be more precise in determining
    * values such as position, at the cost of speed.
    */
-  GMVDetectorFaceAccurateMode = 201
+  GMVDetectorFaceAccurateMode = 201,
+  /**
+   *  Face detection mode code indicating detect predominant faces appeared in self-photography
+   *  style and may be not detecting smaller and further away faces.
+   */
+  GMVDetectorFaceSelfieMode = 202
 };
 
 /**
@@ -102,7 +87,11 @@ typedef NS_OPTIONS(NSInteger, GMVDetectorFaceLandmark) {
   /**
    * Face landmark option indicating it performs all landmark detection.
    */
-  GMVDetectorFaceLandmarkAll = 1 << 1
+  GMVDetectorFaceLandmarkAll = 1 << 1,
+  /**
+   * Face landmark option indicating it performs contour detection.
+   */
+  GMVDetectorFaceLandmarkContour = 1 << 2
 };
 
 /**
@@ -122,6 +111,27 @@ typedef NS_OPTIONS(NSInteger, GMVDetectorFaceClassification) {
 
 /** This value is the default score threshold set on label detectors. */
 extern const float kGMVDetectorLabelScoreThresholdDefaultValue;
+
+/**
+ * @options GMVDetectorObjectCategory
+ * This option specifies the whitelisted categories, to be associated to the
+ * GMVDetectorObjectCategoriesWhitelist key.
+ *
+ * Note that if no class is whitelisted, it's as if all classes are whitelisted, and the detector
+ * can return any class it supports.
+ */
+typedef NS_OPTIONS(NSInteger, GMVDetectorObjectCategory) {
+  /** Object classification option indicating the Home Good category is whitelisted. */
+  GMVDetectorObjectCategoryHomeGood = 1 << 0,
+  /** Object classification option indicating the Fashion Good category is whitelisted. */
+  GMVDetectorObjectCategoryFashionGood = 1 << 1,
+  /** Object classification option indicating the Food category is whitelisted. */
+  GMVDetectorObjectCategoryFood = 1 << 2,
+  /** Object classification option indicating the Places category is whitelisted. */
+  GMVDetectorObjectCategoryPlaces = 1 << 3,
+  /** Object classification option indicating the Plants category is whitelisted. */
+  GMVDetectorObjectCategoryPlants = 1 << 4,
+};
 
 /**
  * @enum GMVBarcodeFeatureEmailType
@@ -355,6 +365,13 @@ extern NSString * const GMVDetectorTypeText;
  */
 extern NSString * const GMVDetectorTypeLabel;
 
+/**
+ * @memberof GMVDetector
+ * A detector that classifies a frame from a stream, returning up to one GMVObjectFeature object
+ * that provides information about detected objects.
+ */
+extern NSString* const GMVDetectorTypeObject;
+
 #pragma mark - Label Detector Configuration Keys
 
 /**
@@ -366,6 +383,37 @@ extern NSString * const GMVDetectorTypeLabel;
  * If unset, a default value of kGMVDetectorLabelScoreThresholdDefaultValue is used.
  */
 extern NSString * const GMVDetectorLabelScoreThreshold;
+
+#pragma mark - Object Detector Configuration Keys
+
+/**
+ * @memberof GMVDetector
+ * A key used to specify the categories of labels returned by the object detector. See the possible
+ * options for GMVDetectorObjectCategory above.
+ */
+extern NSString* const GMVDetectorObjectCategories;
+
+/**
+ * @memberof GMVDetector
+ * A key used to specify if the object detector should only detect the most close to the camera
+ * (prominent) object in the image / frame. Defaults to “true”.
+ */
+extern NSString* const GMVDetectorObjectProminentObject;
+
+/**
+ * @memberof GMVDetector
+ * A key used to specify whether the object classification feature is enabled for the object
+ * detector. If turned off only localization of the object bounding box will happen without defining
+ * what class it belongs to. Defaults to “true”.
+ */
+extern NSString* const GMVDetectorObjectClassifierEnabled;
+
+/**
+ * @memberof GMVDetector
+ * A key used to specify whether the object tracking feature is enabled for the object detector.
+ * If turned on the results for detection are returned immediately, but have a cold call period.
+ */
+extern NSString* const GMVDetectorObjectTrackingEnabled;
 
 #pragma mark - Barcode Detector Configuration Keys
 
@@ -425,18 +473,6 @@ extern NSString * const GMVDetectorFaceLandmarkType;
  */
 extern NSString * const GMVDetectorImageOrientation;
 
-/**
- * @memberof GMVDetector
- * A key used to specify the coordinate space of detection results. The value of this key is
- * an NSNumber wrapping a GMVResultCoordinateSpace. If not specified, it defaults to
- * GMVResultCaptureDeviceCoordinateSpace.
- *
- * Prior to 1.2.0, the GMVDetector always returns results in
- * GMVResultCaptureDeviceEXIFCoordinateSpace. This option exists as a migration option. The
- * detection results for future releases will only be in GMVResultCaptureDeviceCoordinateSpace.
- */
-extern NSString * const GMVDetectorResultCoordinateSpace __attribute__ ((deprecated));
-
 #pragma mark - Feature Types
 
 /**
@@ -480,5 +516,12 @@ extern NSString * const GMVFeatureTypeTextElement;
  * the detected feature.
  */
 extern NSString * const GMVFeatureTypeLabel;
+
+/**
+ * @memberof GMVFeature
+ * The discovered feature is an object. Use the GMVObjectFeature class to get more information about
+ * the detected feature.
+ */
+extern NSString* const GMVFeatureTypeObject;
 
 #endif  // GMVDetector_GMVDetectorConstants_h

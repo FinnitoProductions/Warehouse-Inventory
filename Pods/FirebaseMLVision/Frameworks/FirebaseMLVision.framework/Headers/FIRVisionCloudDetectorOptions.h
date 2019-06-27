@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * @enum VisionCloudModelType
- * This enum specifies the type of model to use in vision cloud detection API.
+ * Type of model to use in vision cloud detection API.
  */
 typedef NS_ENUM(NSUInteger, FIRVisionCloudModelType) {
   /** Stable model. */

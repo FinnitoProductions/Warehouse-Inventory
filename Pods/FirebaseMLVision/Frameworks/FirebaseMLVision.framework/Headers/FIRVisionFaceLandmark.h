@@ -6,7 +6,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * Type of all facical landmarks.
+ * Type of all facial landmarks.
  */
 typedef NSString *FIRFaceLandmarkType NS_EXTENSIBLE_STRING_ENUM NS_SWIFT_NAME(FaceLandmarkType);
 

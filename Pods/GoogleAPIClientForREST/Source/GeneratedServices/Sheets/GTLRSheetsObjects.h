@@ -328,7 +328,8 @@ GTLR_EXTERN NSString * const kGTLRSheets_BasicChartSeries_Type_Combo;
  */
 GTLR_EXTERN NSString * const kGTLRSheets_BasicChartSeries_Type_Line;
 /**
- *  A <a href="/chart/interactive/docs/gallery/scatterchart">scatter chart</a>.
+ *  A <a href="/chart/interactive/docs/gallery/scatterchart">scatter
+ *  chart</a>.
  *
  *  Value: "SCATTER"
  */
@@ -381,7 +382,8 @@ GTLR_EXTERN NSString * const kGTLRSheets_BasicChartSpec_ChartType_Combo;
  */
 GTLR_EXTERN NSString * const kGTLRSheets_BasicChartSpec_ChartType_Line;
 /**
- *  A <a href="/chart/interactive/docs/gallery/scatterchart">scatter chart</a>.
+ *  A <a href="/chart/interactive/docs/gallery/scatterchart">scatter
+ *  chart</a>.
  *
  *  Value: "SCATTER"
  */
@@ -2606,7 +2608,7 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
  *  The chart that should be added to the spreadsheet, including the position
  *  where it should be placed. The chartId
  *  field is optional; if one is not set, an id will be randomly generated. (It
- *  is an error to specify the ID of a chart that already exists.)
+ *  is an error to specify the ID of an embedded object that already exists.)
  */
 @property(nonatomic, strong, nullable) GTLRSheets_EmbeddedChart *chart;
 
@@ -3146,7 +3148,8 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
  *        chart</a>. (Value: "SCATTER")
  *    @arg @c kGTLRSheets_BasicChartSeries_Type_SteppedArea A
  *        <a href="/chart/interactive/docs/gallery/steppedareachart">stepped
- *        area chart</a>. (Value: "STEPPED_AREA")
+ *        area
+ *        chart</a>. (Value: "STEPPED_AREA")
  */
 @property(nonatomic, copy, nullable) NSString *type;
 
@@ -3188,7 +3191,8 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
  *        chart</a>. (Value: "SCATTER")
  *    @arg @c kGTLRSheets_BasicChartSpec_ChartType_SteppedArea A
  *        <a href="/chart/interactive/docs/gallery/steppedareachart">stepped
- *        area chart</a>. (Value: "STEPPED_AREA")
+ *        area
+ *        chart</a>. (Value: "STEPPED_AREA")
  */
 @property(nonatomic, copy, nullable) NSString *chartType;
 
@@ -4695,7 +4699,12 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
  *  can be trivially provided to the constructor of "java.awt.Color" in Java; it
  *  can also be trivially provided to UIColor's "+colorWithRed:green:blue:alpha"
  *  method in iOS; and, with just a little work, it can be easily formatted into
- *  a CSS "rgba()" string in JavaScript, as well. Here are some examples:
+ *  a CSS "rgba()" string in JavaScript, as well.
+ *  Note: this proto does not carry information about the absolute color space
+ *  that should be used to interpret the RGB value (e.g. sRGB, Adobe RGB,
+ *  DCI-P3, BT.2020, etc.). By default, applications SHOULD assume the sRGB
+ *  color
+ *  space.
  *  Example (Java):
  *  import com.google.type.Color;
  *  // ...
@@ -6886,8 +6895,8 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
 /**
  *  Pattern string used for formatting. If not set, a default pattern based on
  *  the user's locale will be used if necessary for the given type.
- *  See the [Date and Number Formats guide](/sheets/api/guides/formats) for more
- *  information about the supported patterns.
+ *  See the [Date and Number Formats guide](/sheets/api/guides/formats) for
+ *  more information about the supported patterns.
  */
 @property(nonatomic, copy, nullable) NSString *pattern;
 
@@ -8312,8 +8321,9 @@ GTLR_EXTERN NSString * const kGTLRSheets_WaterfallChartSpec_StackedType_Waterfal
  *  The angle between the standard orientation and the desired orientation.
  *  Measured in degrees. Valid values are between -90 and 90. Positive
  *  angles are angled upwards, negative are angled downwards.
- *  Note: For LTR text direction positive angles are in the counterclockwise
- *  direction, whereas for RTL they are in the clockwise direction
+ *  Note: For LTR text direction positive angles are in the
+ *  counterclockwise direction, whereas for RTL they are in the clockwise
+ *  direction
  *
  *  Uses NSNumber of intValue.
  */

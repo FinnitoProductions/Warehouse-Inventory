@@ -12,11 +12,10 @@ NS_SWIFT_NAME(VisionCloudDocumentTextRecognizerOptions)
  * An array of hinted language codes for cloud document text recognition. The default is `nil`. See
  * https://cloud.google.com/vision/docs/languages for supported language codes.
  */
-@property(nonatomic, nullable) NSArray<NSString *> *languageHints;
+@property(nonatomic, copy, nullable) NSArray<NSString *> *languageHints;
 
 /**
- * API key to use for Cloud Vision API.  If `nil`, the default API key from FirebaseApp will be
- * used.
+ * API key to use for Cloud Vision API. If `nil`, the default API key from FirebaseApp will be used.
  */
 @property(nonatomic, copy, nullable) NSString *APIKeyOverride;
 

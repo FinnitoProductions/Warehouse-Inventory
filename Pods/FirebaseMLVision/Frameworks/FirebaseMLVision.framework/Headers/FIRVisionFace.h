@@ -1,9 +1,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
-#ifdef ENABLE_FACE_CONTOUR
 #import "FIRVisionFaceContour.h"
-#endif  // ENABLE_FACE_CONTOUR
 #import "FIRVisionFaceLandmark.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -95,7 +93,6 @@ NS_SWIFT_NAME(VisionFace)
  */
 - (nullable FIRVisionFaceLandmark *)landmarkOfType:(FIRFaceLandmarkType)type;
 
-#ifdef ENABLE_FACE_CONTOUR
 /**
  * Returns the contour, if any, of the given type in this detected face.
  *
@@ -103,7 +100,6 @@ NS_SWIFT_NAME(VisionFace)
  * @return The contour of the given type in this face.  nil if there isn't one.
  */
 - (nullable FIRVisionFaceContour *)contourOfType:(FIRFaceContourType)type;
-#endif  // ENABLE_FACE_CONTOUR
 
 @end
 

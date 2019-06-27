@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * @enum VisionBarcodeValueType
- * This enum specifies a barcode's value format. For example, TEXT, PRODUCT, URL, etc.
+ * Barcode's value format. For example, TEXT, PRODUCT, URL, etc.
  */
 typedef NS_ENUM(NSInteger, FIRVisionBarcodeValueType) {
   /**
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, FIRVisionBarcodeValueType) {
 
 /**
  * @enum VisionBarcodeAddressType
- * This enum specifies address type.
+ * Address type.
  */
 typedef NS_ENUM(NSInteger, FIRVisionBarcodeAddressType) {
   /**
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSInteger, FIRVisionBarcodeAddressType) {
 
 /**
  * @enum VisionBarcodeEmailType
- * This enum specifies the email type for VisionBarcodeEmail.
+ * Email type for VisionBarcodeEmail.
  */
 typedef NS_ENUM(NSInteger, FIRVisionBarcodeEmailType) {
   /**
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, FIRVisionBarcodeEmailType) {
 
 /**
  * @enum VisionBarcodePhoneType
- * This enum specifies the phone type for VisionBarcodePhone.
+ * Phone type for VisionBarcodePhone.
  */
 typedef NS_ENUM(NSInteger, FIRVisionBarcodePhoneType) {
   /**
@@ -131,7 +131,7 @@ typedef NS_ENUM(NSInteger, FIRVisionBarcodePhoneType) {
 
 /**
  * @enum VisionBarcodeWiFiEncryptionType
- * This enum specifies the Wi-Fi encryption type for VisionBarcodeWiFi.
+ * Wi-Fi encryption type for VisionBarcodeWiFi.
  */
 typedef NS_ENUM(NSInteger, FIRVisionBarcodeWiFiEncryptionType) {
   /**
@@ -160,6 +160,10 @@ NS_SWIFT_NAME(VisionBarcodeAddress)
 
 /**
  * Formatted address, containing multiple lines when appropriate.
+ *
+ * The parsing of address formats is quite limited. Typically all address information will appear
+ * on the first address line. To handle addresses better, it is recommended to parse the raw data.
+ * The raw data is available in `FIRVisionBarcode`'s `rawValue` property.
  */
 @property(nonatomic, readonly, nullable) NSArray<NSString *> *addressLines;
 
@@ -225,6 +229,9 @@ NS_SWIFT_NAME(VisionBarcodeCalendarEvent)
 
 /**
  * A driver license or ID card data representation.
+ *
+ * An ANSI driver license contains more fields than are represented by this class. The
+ * `FIRVisionBarcode`s `rawValue` property can be used to access the other fields.
  */
 NS_SWIFT_NAME(VisionBarcodeDriverLicense)
 @interface FIRVisionBarcodeDriverLicense : NSObject
@@ -508,7 +515,12 @@ NS_SWIFT_NAME(VisionBarcodeWifi)
 @end
 
 /**
- * A person's or organization's business card. For example, a vCard.
+ * A person's or organization's business card. This may come from different underlying formats
+ * including VCARD and MECARD.
+ *
+ * This object represents a simplified view of possible business cards. If you require lossless
+ * access to the information in the barcode, you should parse the raw data yourself. To access the
+ * raw data, use the `FIRVisionBarcode`s `rawValue` property.
  */
 NS_SWIFT_NAME(VisionBarcodeContactInfo)
 @interface FIRVisionBarcodeContactInfo : NSObject

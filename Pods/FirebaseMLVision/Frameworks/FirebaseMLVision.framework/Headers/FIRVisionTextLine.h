@@ -28,17 +28,18 @@ NS_SWIFT_NAME(VisionTextLine)
 @property(nonatomic, readonly) CGRect frame;
 
 /**
- * The four corner points of the text line in clockwise order starting with the top left point
- * relative to the image in the default coordinate space. The `NSValue` objects are `CGPoint`s.
- */
-@property(nonatomic, readonly) NSArray<NSValue *> *cornerPoints;
-
-/**
  * An array of recognized languages in the text line. On-device text recognizers only detect
  * Latin-based languages, while cloud text recognizers can detect multiple languages. If no
  * languages are recognized, the array is empty.
  */
 @property(nonatomic, readonly) NSArray<FIRVisionTextRecognizedLanguage *> *recognizedLanguages;
+
+/**
+ * The four corner points of the text line in clockwise order starting with the top left point
+ * relative to the image in the default coordinate space. The `NSValue` objects are `CGPoint`s. For
+ * cloud text recognizers, the array is `nil`.
+ */
+@property(nonatomic, readonly, nullable) NSArray<NSValue *> *cornerPoints;
 
 /**
  * The confidence of the recognized text line. The value is `nil` for all text recognizers except
