@@ -66,29 +66,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Output" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqr-XJ-Ac1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Output" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqr-XJ-Ac1">
                                 <rect key="frame" x="186" y="732" width="54" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lsw-2t-vga" customClass="GIDSignInButton">
-                                <rect key="frame" x="93" y="301" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsw-2t-vga" customClass="GIDSignInButton">
+                                <rect key="frame" x="110" y="301" width="194" height="74"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0w-3c-UVQ">
+                                <rect key="frame" x="177" y="399" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="signOutPressed:" destination="9Il-Ur-DBg" eventType="touchUpInside" id="3sy-eW-Wfn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lsw-2t-vga" firstAttribute="leading" secondItem="bvp-gU-esm" secondAttribute="leading" constant="110" id="4C8-P5-Hce"/>
+                            <constraint firstItem="bvp-gU-esm" firstAttribute="trailing" secondItem="Yqr-XJ-Ac1" secondAttribute="trailing" constant="174" id="4eU-BU-13e"/>
+                            <constraint firstItem="Yqr-XJ-Ac1" firstAttribute="leading" secondItem="bvp-gU-esm" secondAttribute="leading" constant="186" id="G56-sf-ell"/>
+                            <constraint firstItem="Yqr-XJ-Ac1" firstAttribute="top" secondItem="lsw-2t-vga" secondAttribute="bottom" constant="357" id="HfP-Qe-Kfo"/>
+                            <constraint firstItem="lsw-2t-vga" firstAttribute="top" secondItem="bvp-gU-esm" secondAttribute="top" constant="213" id="QKZ-k9-5jk"/>
+                            <constraint firstItem="bvp-gU-esm" firstAttribute="bottom" secondItem="Yqr-XJ-Ac1" secondAttribute="bottom" constant="109" id="heo-Kr-vYU"/>
+                            <constraint firstItem="Yqr-XJ-Ac1" firstAttribute="top" secondItem="lsw-2t-vga" secondAttribute="bottom" constant="357" id="is4-Qx-dyd"/>
+                            <constraint firstItem="bvp-gU-esm" firstAttribute="trailing" secondItem="lsw-2t-vga" secondAttribute="trailing" constant="110" id="toN-ub-1NU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bvp-gU-esm"/>
                     </view>
                     <connections>
                         <outlet property="signInButton" destination="lsw-2t-vga" id="o6J-VX-zfv"/>
+                        <outlet property="signOutButton" destination="z0w-3c-UVQ" id="LCY-Sm-odN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7xo-1D-lVA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1837" y="137"/>
+            <point key="canvasLocation" x="1836.2318840579712" y="136.60714285714286"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="khm-5O-t3W">
